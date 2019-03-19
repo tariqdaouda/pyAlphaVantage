@@ -13,7 +13,7 @@ api = AVA.AlphaVantage(api_key=<your api key>)
 data = api.TIME_SERIES_DAILY_ADJUSTED(symbol=SYMBOL, datatype="csv", outputsize="full")
 ```
 
-TIME_SERIES_DAILY_ADJUSTED can be replaced by any function in the documentation as long as it part of API and defined in *api.functions_defs*.
+*TIME_SERIES_DAILY_ADJUSTED* can be replaced by any function in the documentation as long as it is part of the API and defined in *api.functions_defs*.
 
 ## Adding a function to definitions can be done using
 ```python
