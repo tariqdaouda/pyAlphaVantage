@@ -1,3 +1,4 @@
+
 class AlphaVantage(object):
     """This class can make any call to AlphaVantage api"""
     def __init__(self, api_key, default_outputsize = "full", default_datatype = "csv"):
@@ -91,7 +92,25 @@ class AlphaVantage(object):
             "HT_PHASOR" : ("symbol", "interval", "series_type", "datatype")
         }
 
+    def add_function_definitions(self, function_name, argument_list) :
+        """add (or overwrites) a function definition. function_name is the name as definied in AlphaVantage's doc,
+        argument_list is a list or tuple of argument names passed to that function"""
+
+        self.functions_defs[function_name] = argument_list
+
+    def get_available_functions(self) :
+        """return the names of available functions"""
+        return self.functions_defs.keys()
+
+    def get_function_arguments(self, function_name) :
+        """return the arguments of a expected by a given function"""
+        try:
+            return self.functions_defs[function_name]
+        except KeyError as e:
+            raise KeyError("%s is not among the defined functions. You can add it using self.add_function_definitions(function_name, argument_list)")
+
     def _get(self, function_name) :
+        """You should never have to call this magic function direclty. It will create a function for the API call and return it to you"""
         def __get(**params) :
             import requests 
                 
@@ -135,6 +154,7 @@ class AlphaVantage(object):
         return __get
 
     def __getattr__(self, k) :
+        """If the attribute is not found in the the object and if is present in function definition. Create the function for the api call and return it"""
         defs = object.__getattribute__(self, "functions_defs")
         if k in defs :
             return self._get(k)
