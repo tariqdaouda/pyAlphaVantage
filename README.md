@@ -1,5 +1,6 @@
 # pyAlphaVantage
-A mighty small (thanks to a bit of **Black_Magic**) python package for all AlphaVantage API.
+A mighty small (thanks to a bit of **Black_Magic**) python package for all AlphaVantage financial API. Retrieve both historical and current financial data for stocks, forex and crypto, ...
+plus some nice metrics.
 
 ## Step 1
 Install it however you want (git clone / pip)
